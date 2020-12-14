@@ -1,0 +1,15 @@
+{
+  "itemGroup.freezedup_item_group": "Freezed Up",
+
+  "item.freezedup.frozen_truffle": "Frozen Truffle",
+  "item.freezedup.truffle": "Truffle",
+  "item.freezedup.truffle_muffin": "Truffle Muffin",
+  "item.freezedup.chilloo_spawn_egg": "Chilloo Spawn Egg",
+  "item.freezedup.chilloo_feather": "Chilloo Feather",
+
+  "entity.freezedup.chilloo": "Chilloo",
+
+  "freezedup.chilloo.ambient": "Chilloo chirps",
+  "freezedup.chilloo.hurt": "Chilloo hurts",
+  "freezedup.chilloo.death": "Chilloo dies"
+}
