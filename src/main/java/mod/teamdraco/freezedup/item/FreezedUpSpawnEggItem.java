@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class FreezedUpSpawnEggItem extends SpawnEggItem {
 
-    protected static final List<FreezedUpSpawnEggItem> UNADDED_EGGS = new ArrayList<FreezedUpSpawnEggItem>();
+    public static final List<FreezedUpSpawnEggItem> UNADDED_EGGS = new ArrayList<FreezedUpSpawnEggItem>();
     private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
     public FreezedUpSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour, final Item.Properties properties) {

@@ -1,6 +1,7 @@
 package mod.teamdraco.freezedup;
 
 import mod.teamdraco.freezedup.entity.ChillooEntity;
+import mod.teamdraco.freezedup.init.FreezedUpBlocks;
 import mod.teamdraco.freezedup.init.FreezedUpEntities;
 import mod.teamdraco.freezedup.init.FreezedUpItems;
 import mod.teamdraco.freezedup.init.FreezedUpSounds;
@@ -34,6 +35,7 @@ public class FreezedUp {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::registerCommon);
 
+        FreezedUpBlocks.REGISTER.register(bus);
         FreezedUpItems.REGISTER.register(bus);
         FreezedUpSounds.REGISTER.register(bus);
         FreezedUpEntities.REGISTER.register(bus);

@@ -8,14 +8,18 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -35,8 +39,8 @@ public class ChillooEntity extends TameableEntity {
 
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-        this.goalSelector.addGoal(2, new SitGoal(this));
+        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(2, new PanicGoal(this, 1.4D));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
@@ -87,7 +91,7 @@ public class ChillooEntity extends TameableEntity {
         }
 
         if (this.isOwner(playerEntity) && !this.isBreedingItem(itemstack) && this.isTamed()) {
-            func_233687_w_(!isSitting());
+            func_233687_w_(!isEntitySleeping());
             this.isJumping = false;
             this.navigator.clearPath();
 
@@ -105,10 +109,12 @@ public class ChillooEntity extends TameableEntity {
     @Override
     public void livingTick() {
         super.livingTick();
-        if (!this.world.isRemote && this.isAlive() && !this.isChild() && --this.timeUntilNextFeather <= 0 && this.isTamed()) {
-            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-            this.entityDropItem(FreezedUpItems.CHILLOO_FEATHER.get());
-            this.timeUntilNextFeather = this.rand.nextInt(10000) + 5000;
+        if (!this.world.isRemote) {
+            if (this.isAlive() && !this.isChild() && --this.timeUntilNextFeather <= 0 && this.isTamed()) {
+                this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+                this.entityDropItem(FreezedUpItems.CHILLOO_FEATHER.get());
+                this.timeUntilNextFeather = this.rand.nextInt(10000) + 5000;
+            }
         }
     }
 
@@ -150,5 +156,10 @@ public class ChillooEntity extends TameableEntity {
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putInt("FeatherLayTime", this.timeUntilNextFeather);
+    }
+
+    @Override
+    public ItemStack getPickedResult(RayTraceResult target) {
+        return new ItemStack(FreezedUpItems.CHILLOO_SPAWN_EGG.get());
     }
 }

@@ -7,6 +7,9 @@
   "item.freezedup.chilloo_spawn_egg": "Chilloo Spawn Egg",
   "item.freezedup.chilloo_feather": "Chilloo Feather",
 
+  "block.freezedup.chilloo_feather_block": "Chilloo Feather Block",
+  "block.freezedup.chilloo_feather_block_carpet": "Chilloo Feather Block Carpet",
+
   "entity.freezedup.chilloo": "Chilloo",
 
   "freezedup.chilloo.ambient": "Chilloo chirps",

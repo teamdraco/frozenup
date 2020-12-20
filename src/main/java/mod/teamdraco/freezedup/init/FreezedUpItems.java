@@ -2,6 +2,7 @@ package mod.teamdraco.freezedup.init;
 
 import mod.teamdraco.freezedup.FreezedUp;
 import mod.teamdraco.freezedup.item.FreezedUpSpawnEggItem;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -18,8 +19,6 @@ public class FreezedUpItems {
     public static final RegistryObject<Item> CHILLOO_SPAWN_EGG = REGISTER.register("chilloo_spawn_egg", () -> new FreezedUpSpawnEggItem(FreezedUpEntities.CHILLOO, 0xbadada, 0x32383c, new Item.Properties().group(FreezedUp.GROUP)));
     public static final RegistryObject<Item> CHILLOO_FEATHER = REGISTER.register("chilloo_feather", () -> new Item(new Item.Properties().group(FreezedUp.GROUP)));
 
-    private static Item register(String name, Item item) {
-        REGISTER.register(name, () -> item);
-        return item;
-    }
+    public static final RegistryObject<BlockItem> CHILLOO_FEATHER_BLOCK = REGISTER.register("chilloo_feather_block", () -> new BlockItem(FreezedUpBlocks.CHILLOO_FEATHER_BLOCK.get(), new Item.Properties().group(FreezedUp.GROUP)));
+    public static final RegistryObject<BlockItem> CHILLOO_FEATHER_BLOCK_CARPET = REGISTER.register("chilloo_feather_block_carpet", () -> new BlockItem(FreezedUpBlocks.CHILLOO_FEATHER_BLOCK_CARPET.get(), new Item.Properties().group(FreezedUp.GROUP)));
 }

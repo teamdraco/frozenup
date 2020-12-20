@@ -70,20 +70,52 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
             this.head.rotationPointY = 10;
             this.head.rotationPointZ = -8;
         }
-        if (entityIn.isSitting()) {
-            this.head.rotationPointY = 500;
+        if (entityIn.isEntitySleeping()) {
+            this.body.setRotationPoint(0.0F, 9.0F, -2.0F);
+            this.setRotateAngle(body, -1.0471975511965976F, 0.0F, 0.0F);
+
+            this.tail.setRotationPoint(0.0F, 0.0F, 14.0F);
+            this.setRotateAngle(tail, 1.7453292519943295F, 0.0F, 0.0F);
+
+            this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
+            this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
+            this.head.rotationPointZ = -4.5f;
+            if (this.isChild) {
+                this.head.rotationPointY = 6;
+            }
+            else {
+                this.head.rotationPointY = 5.5f;
+            }
+
+            this.left_leg.setRotationPoint(-4.5F, 4.0F, 12.0F);
+            this.setRotateAngle(left_leg, -0.47123889803846897F, 0.17453292519943295F, 0.2617993877991494F);
+
+            this.right_leg.setRotationPoint(4.5F, 4.0F, 12.0F);
+            this.setRotateAngle(right_leg, -0.47123889803846897F, -0.17453292519943295F, -0.2617993877991494F);
         }
         else {
             this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
             this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
+            this.head.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
+            this.head.rotationPointY = 9.5f;
+            this.head.rotationPointZ = -3.5f;
+
             this.tail.rotateAngleY = MathHelper.cos(f * speed * 0.2F) * degree * 0.6F * f1;
             this.tail.rotateAngleX = MathHelper.cos(f * speed * 0.4F) * degree * 0.6F * f1 - 0.4F;
+
             this.right_leg.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * 0.8F * f1;
+            this.right_leg.rotateAngleY = 0;
+            this.right_leg.rotateAngleZ = 0;
+            this.right_leg.rotationPointZ = 7.5f;
+
             this.left_leg.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * -0.8F * f1;
-            this.head.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
+            this.left_leg.rotateAngleY = 0;
+            this.left_leg.rotateAngleZ = 0;
+            this.left_leg.rotationPointZ = 7.5f;
+
+            this.body.rotateAngleX = 0;
+            this.body.rotateAngleY = 0;
             this.body.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.1F * f1;
-            this.head.rotationPointY = 12;
-            this.head.rotationPointZ = -10;
         }
     }
 
