@@ -40,7 +40,7 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
         this.tail_feathers = new ModelRenderer(this, 60, 42);
         this.tail_feathers.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.tail_feathers.addBox(-1.5F, 3.0F, 0.0F, 3.0F, 4.0F, 18.0F, 0.0F, 0.0F, 0.0F);
-        this.body_feathers = new ModelRenderer(this, 3, 25);
+        this.body_feathers = new ModelRenderer(this, 4, 25);
         this.body_feathers.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.body_feathers.addBox(-5.0F, 6.0F, 0.0F, 10.0F, 3.0F, 16.0F, 0.0F, 0.0F, 0.0F);
         this.body = new ModelRenderer(this, 0, 0);
@@ -97,8 +97,8 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
             this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
             this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
             this.head.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
-            this.head.rotationPointY = 9.5f;
-            this.head.rotationPointZ = -3.5f;
+            this.head.rotationPointY = 10;
+            this.head.rotationPointZ = -4;
 
             this.tail.rotateAngleY = MathHelper.cos(f * speed * 0.2F) * degree * 0.6F * f1;
             this.tail.rotateAngleX = MathHelper.cos(f * speed * 0.4F) * degree * 0.6F * f1 - 0.4F;
@@ -114,7 +114,7 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
             this.left_leg.rotationPointZ = 7.5f;
 
             this.body.rotateAngleX = 0;
-            this.body.rotateAngleY = 0;
+            this.body.rotateAngleY = 12;
             this.body.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.1F * f1;
         }
     }
