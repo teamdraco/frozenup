@@ -519,97 +519,97 @@ public class ChillooEntity extends TameableEntity {
         	this.setHasYellowBand(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.BLACK_WOOL.asItem() && !this.hasBlackSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.BLACK_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasBlackSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.BLUE_WOOL.asItem() && !this.hasBlueSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.BLUE_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasBlueSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.BROWN_WOOL.asItem() && !this.hasBrownSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.BROWN_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasBrownSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.CYAN_WOOL.asItem() && !this.hasCyanSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.CYAN_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasCyanSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.GRAY_WOOL.asItem() && !this.hasGraySweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.GRAY_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasGraySweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.GREEN_WOOL.asItem() && !this.hasGreenSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.GREEN_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasGreenSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.LIGHT_BLUE_WOOL.asItem() && !this.hasLightBlueSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.LIGHT_BLUE_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasLightBlueSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.LIGHT_GRAY_WOOL.asItem() && !this.hasLightGraySweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.LIGHT_GRAY_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasLightGraySweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.LIME_WOOL.asItem() && !this.hasLimeSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.LIME_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasLimeSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.MAGENTA_WOOL.asItem() && !this.hasMagentaSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.MAGENTA_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasMagentaSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.ORANGE_WOOL.asItem() && !this.hasOrangeSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.ORANGE_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasOrangeSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.PINK_WOOL.asItem() && !this.hasPinkSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.PINK_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasPinkSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.PURPLE_WOOL.asItem() && !this.hasPurpleSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.PURPLE_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasPurpleSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.RED_WOOL.asItem() && !this.hasRedSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.RED_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasRedSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.WHITE_WOOL.asItem() && !this.hasWhiteSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.WHITE_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasWhiteSweater(true);
             itemstack.shrink(1);
             return ActionResultType.SUCCESS;
-        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.YELLOW_WOOL.asItem() && !this.hasYellowSweater()) {
+        } else if (this.isTamed() && this.isOwner(playerEntity) && item == Blocks.YELLOW_WOOL.asItem() && !this.hasBlackSweater()  && !this.hasBlueSweater() && !this.hasBrownSweater() && !this.hasCyanSweater() && !this.hasGraySweater() && !this.hasGreenSweater() && !this.hasLightBlueSweater() && !this.hasLightGraySweater() && !this.hasLimeSweater() && !this.hasMagentaSweater() && !this.hasOrangeSweater() && !this.hasPinkSweater() && !this.hasPurpleSweater() && !this.hasRedSweater() && !this.hasWhiteSweater() && !this.hasYellowSweater()) {
         	this.resetSweaterColor();
         	this.resetBandColor();
         	this.setHasYellowSweater(true);
