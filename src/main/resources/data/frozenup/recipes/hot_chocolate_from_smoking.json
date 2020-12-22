@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "frozenup:chocolate_milk"
+  },
+  "result": "frozenup:hot_chocolate",
+  "experience": 0.35,
+  "cookingtime": 100
+}

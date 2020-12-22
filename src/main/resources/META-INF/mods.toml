@@ -2,10 +2,10 @@ modLoader="javafml" #mandatory
 loaderVersion="[35,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="All rights reserved"
 [[mods]] #mandatory
-modId="freezedup" #mandatory
+modId="frozenup" #mandatory
 version="${file.jarVersion}" #mandatory
-displayName="Freezd Up" #mandatory
-credits="Coda (code) & Ninni (art)" #optional
+displayName="Frozen Up" #mandatory
+credits="Coda (code), Ninni (art), & superlord9362 (code)" #optional
 authors="Team Draco" #optional
 description='''
 Placeholder description.'''
