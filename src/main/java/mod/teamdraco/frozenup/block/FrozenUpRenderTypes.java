@@ -19,8 +19,8 @@ public class FrozenUpRenderTypes {
 	public static void registerBlocks(final RegistryEvent.Register<Block> event) {
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			RenderType cutoutRenderType = RenderType.getCutout();
-			RenderTypeLookup.setRenderLayer(FrozenUpBlocks.FROZEN_FLOWER.get(), cutoutRenderType);
-			RenderTypeLookup.setRenderLayer(FrozenUpBlocks.POTTED_FROZEN_FLOWER.get(), cutoutRenderType);
+			RenderTypeLookup.setRenderLayer(FrozenUpBlocks.FROST_FLOWER.get(), cutoutRenderType);
+			RenderTypeLookup.setRenderLayer(FrozenUpBlocks.POTTED_FROST_FLOWER.get(), cutoutRenderType);
 		}
 	}
 
