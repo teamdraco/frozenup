@@ -12,10 +12,10 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
-public class FreezedUpCarpetBlock extends Block {
+public class CarpetBlock extends Block {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D);
 
-    public FreezedUpCarpetBlock(AbstractBlock.Properties properties) {
+    public CarpetBlock(AbstractBlock.Properties properties) {
         super(properties);
     }
 
