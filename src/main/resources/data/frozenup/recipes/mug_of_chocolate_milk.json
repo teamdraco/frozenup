@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "frozenup:cup_of_milk"
+      "item": "frozenup:mug_of_milk"
     },
 	{
 		"item": "minecraft:cocoa_beans"
