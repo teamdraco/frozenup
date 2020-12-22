@@ -29,5 +29,5 @@ public class FrozenUpItems {
     public static final RegistryObject<BlockItem> CHILLOO_FEATHER_BLOCK_CARPET = REGISTER.register("chilloo_feather_block_carpet", () -> new BlockItem(FrozenUpBlocks.CHILLOO_FEATHER_BLOCK_CARPET.get(), new Item.Properties().group(FrozenUp.GROUP)));
     public static final RegistryObject<BlockItem> TRUFFLE_CAKE = REGISTER.register("truffle_cake", () -> new BlockItem(FrozenUpBlocks.TRUFFLE_CAKE.get(), new Item.Properties().group(FrozenUp.GROUP).maxStackSize(1)));
     public static final RegistryObject<BlockItem> CHILLOO_FEATHER_LAMP = REGISTER.register("chilloo_feather_lamp", () -> new BlockItem(FrozenUpBlocks.CHILLOO_FEATHER_LAMP.get(), new Item.Properties().group(FrozenUp.GROUP)));
-    public static final RegistryObject<BlockItem> FROST_FLOWER = REGISTER.register("frost_flower", () -> new BlockItem(FrozenUpBlocks.FROST_FLOWER.get(), new Item.Properties().group(FrozenUp.GROUP)));
+    public static final RegistryObject<BlockItem> FROZEN_FLOWER = REGISTER.register("frozen_flower", () -> new BlockItem(FrozenUpBlocks.FROST_FLOWER.get(), new Item.Properties().group(FrozenUp.GROUP)));
 }
