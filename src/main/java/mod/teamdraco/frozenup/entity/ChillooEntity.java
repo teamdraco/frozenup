@@ -392,7 +392,7 @@ public class ChillooEntity extends TameableEntity {
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-        if (!this.isSitting()) {
+        if(!this.isSitting()) {
         	this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
         }
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
