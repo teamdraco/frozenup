@@ -392,11 +392,12 @@ public class ChillooEntity extends TameableEntity {
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
+        if (!this.isSitting()) {
+        	this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
+        }
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.addGoal(9, new DiggingGoal(this));
-        //this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
@@ -428,7 +429,7 @@ public class ChillooEntity extends TameableEntity {
             if (!playerEntity.abilities.isCreativeMode) {
                 itemstack.shrink(1);
             }
-            if (this.rand.nextInt(0) == 0 && !ForgeEventFactory.onAnimalTame(this, playerEntity)) {
+            if (!ForgeEventFactory.onAnimalTame(this, playerEntity)) {
                 this.setTamedBy(playerEntity);
                 this.navigator.clearPath();
                 this.func_233687_w_(true);

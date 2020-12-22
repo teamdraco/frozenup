@@ -29,7 +29,7 @@ public class FrozenUpBlocks {
 	public static final RegistryObject<Block> FROST_FLOWER = REGISTER.register("frost_flower", () -> new FlowerBlock(Effects.SLOWNESS, 6, AbstractBlock.Properties.create(Material.PLANTS).doesNotBlockMovement().zeroHardnessAndResistance().sound(SoundType.PLANT)));
 	@SuppressWarnings("deprecation")
 	public static final RegistryObject<Block> POTTED_FROST_FLOWER = REGISTER.register("potted_frost_flower", () -> new FlowerPotBlock(FROST_FLOWER.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
-	
+
 	private static ToIntFunction<BlockState> getLightValueLit(int lightValue) {
 		return (state) -> {
 			return state.get(BlockStateProperties.LIT) ? lightValue : 0;
