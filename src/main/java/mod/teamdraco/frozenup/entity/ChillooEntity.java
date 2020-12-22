@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import mod.teamdraco.frozenup.entity.ai.DiggingGoal;
 import mod.teamdraco.frozenup.init.FrozenUpEntities;
 import mod.teamdraco.frozenup.init.FrozenUpItems;
 import mod.teamdraco.frozenup.init.FrozenUpSounds;
@@ -20,7 +21,6 @@ import net.minecraft.entity.ai.goal.BreedGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
@@ -395,7 +395,7 @@ public class ChillooEntity extends TameableEntity {
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        //this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(9, new DiggingGoal(this));
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
