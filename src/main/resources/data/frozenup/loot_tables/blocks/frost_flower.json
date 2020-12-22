@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "frozenup:frozen_flower"
+          "name": "frozenup:frost_flower"
         }
       ],
       "conditions": [
