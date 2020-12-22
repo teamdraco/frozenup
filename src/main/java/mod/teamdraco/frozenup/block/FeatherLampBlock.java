@@ -52,7 +52,7 @@ public class FeatherLampBlock extends Block{
 	}
 	
 	protected void playSound(@Nullable PlayerEntity playerIn, IWorld worldIn, BlockPos pos) {
-		worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_SNOW_PLACE, SoundCategory.BLOCKS, 0.3F, 0.5F);
+		worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.5F);
 	}
 
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {

@@ -67,7 +67,7 @@ public class MilkMugItem extends Item {
          stack.shrink(1);
       }
 
-      return stack.isEmpty() ? new ItemStack(FrozenUpItems.CUP_OF_MILK.get()) : stack;
+      return stack.isEmpty() ? new ItemStack(FrozenUpItems.MUG_OF_MILK.get()) : stack;
    }
 
    /**

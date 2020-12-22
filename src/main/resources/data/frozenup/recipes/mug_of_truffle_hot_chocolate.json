@@ -2,17 +2,17 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:wheat"
+      "item": "frozenup:mug_of_milk"
     },
     {
-      "item": "minecraft:sugar"
+      "item": "minecraft:cocoa_beans"
     },
     {
       "item": "frozenup:truffle"
     }
   ],
   "result": {
-    "item": "frozenup:truffle_muffin",
+    "item": "frozenup:mug_of_truffle_hot_chocolate",
     "count": 1
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "frozenup:item/hot_chocolate"
+    "layer0": "frozenup:item/mug_of_truffle_hot_chocolate"
   }
 }
