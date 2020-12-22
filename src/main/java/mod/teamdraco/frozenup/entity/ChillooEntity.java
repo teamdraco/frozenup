@@ -395,7 +395,7 @@ public class ChillooEntity extends TameableEntity {
         this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
+        //this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
     }
 
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
