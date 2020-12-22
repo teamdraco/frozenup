@@ -44,7 +44,7 @@ public class FrozenUp {
             case ICY:
                 float temperature = climate.temperature;
                 if (climate.temperature <= 0.0f) {
-                    event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(FrozenUpEntities.CHILLOO.get(), 2, 2, 4));
+                    event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(FrozenUpEntities.CHILLOO.get(), 1, 2, 3));
                 }
                 break;
         }
