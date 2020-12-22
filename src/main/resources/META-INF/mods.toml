@@ -7,5 +7,4 @@ version="${file.jarVersion}" #mandatory
 displayName="Frozen Up" #mandatory
 credits="Coda (code), Ninni (art), & superlord9362 (code)" #optional
 authors="Team Draco" #optional
-description='''
-Placeholder description.'''
+description='''Placeholder description.'''
