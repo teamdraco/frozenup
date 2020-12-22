@@ -427,7 +427,7 @@ public class ChillooEntity extends TameableEntity {
             if (!playerEntity.abilities.isCreativeMode) {
                 itemstack.shrink(1);
             }
-            if (this.rand.nextInt(2) == 0 && !ForgeEventFactory.onAnimalTame(this, playerEntity)) {
+            if (!ForgeEventFactory.onAnimalTame(this, playerEntity)) {
                 this.setTamedBy(playerEntity);
                 this.navigator.clearPath();
                 this.func_233687_w_(true);

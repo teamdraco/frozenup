@@ -123,10 +123,4 @@ public class ChillooRenderer extends MobRenderer<ChillooEntity, ChillooModel<Chi
 			return TEXTURE;
 		}
 	}
-
-	@Override
-	protected void preRenderCallback(ChillooEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
-		super.preRenderCallback(entitylivingbaseIn, matrixStackIn, partialTickTime);
-		matrixStackIn.translate(0.25, 0, -0.3f);
-	}
 }

@@ -7,10 +7,10 @@ import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
+import java.util.Collections;
+import java.util.List;
+
 public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> {
     public ModelRenderer body;
     public ModelRenderer tail;
@@ -21,7 +21,12 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
     public ModelRenderer tail_feathers;
     public ModelRenderer head_feathers;
 
+    private List<ModelRenderer> headParts;
+    private List<ModelRenderer> bodyParts;
+
     public ChillooModel() {
+        super(true, 8f, 3f);
+
         this.textureWidth = 112;
         this.textureHeight = 64;
         this.right_leg = new ModelRenderer(this, 0, 25);
@@ -56,17 +61,25 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
         this.body.addChild(this.body_feathers);
         this.body.addChild(this.tail);
         this.body.addChild(this.left_leg);
+
+        this.headParts = Collections.singletonList(head);
+        this.bodyParts = Collections.singletonList(body);
     }
 
     @Override
     public void setRotationAngles(ChillooEntity entityIn, float f, float f1, float ageInTicks, float netHeadYaw, float headPitch) {
         float speed = 1.0f;
         float degree = 1.0f;
-        if(this.isChild) {
-            this.head.rotationPointY = 10;
-            this.head.rotationPointZ = -8;
-        }
         if (entityIn.isEntitySleeping()) {
+            if (entityIn.isChild()) {
+                this.head.rotationPointY = 9f;
+                this.head.rotationPointZ = -5f;
+            }
+            else {
+                this.head.rotationPointY = 5.5f;
+                this.head.rotationPointZ = -4.5f;
+            }
+
             this.body.setRotationPoint(0.0F, 9.0F, -2.0F);
             this.setRotateAngle(body, -1.0471975511965976F, 0.0F, 0.0F);
 
@@ -75,13 +88,6 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
 
             this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
             this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
-            this.head.rotationPointZ = -4.5f;
-            if (this.isChild) {
-                this.head.rotationPointY = 6;
-            }
-            else {
-                this.head.rotationPointY = 5.5f;
-            }
 
             this.left_leg.setRotationPoint(-4.5F, 4.0F, 12.0F);
             this.setRotateAngle(left_leg, -0.47123889803846897F, 0.17453292519943295F, 0.2617993877991494F);
@@ -93,36 +99,41 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
             this.head.rotateAngleX = headPitch * ((float) Math.PI / 180F);
             this.head.rotateAngleY = netHeadYaw * ((float) Math.PI / 180F);
             this.head.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.2F * f1;
-            this.head.rotationPointY = 10;
-            this.head.rotationPointZ = -4;
+            this.head.rotationPointY = 12f;
+            this.head.rotationPointZ = -10f;
 
             this.tail.rotateAngleY = MathHelper.cos(f * speed * 0.2F) * degree * 0.6F * f1;
             this.tail.rotateAngleX = MathHelper.cos(f * speed * 0.4F) * degree * 0.6F * f1 - 0.4F;
+            this.tail.rotationPointZ = 14f;
 
             this.right_leg.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * 0.8F * f1;
-            this.right_leg.rotateAngleY = 0;
-            this.right_leg.rotateAngleZ = 0;
+            this.right_leg.rotateAngleY = 0f;
+            this.right_leg.rotateAngleZ = 0f;
+            this.right_leg.rotationPointX = 4.5f;
+            this.right_leg.rotationPointY = 1.0f;
             this.right_leg.rotationPointZ = 7.5f;
 
             this.left_leg.rotateAngleX = MathHelper.cos(1.0F + f * speed * 0.4F) * degree * -0.8F * f1;
-            this.left_leg.rotateAngleY = 0;
-            this.left_leg.rotateAngleZ = 0;
+            this.left_leg.rotateAngleY = 0f;
+            this.left_leg.rotateAngleZ = 0f;
+            this.left_leg.rotationPointX = -4.5f;
+            this.left_leg.rotationPointY = 1.0f;
             this.left_leg.rotationPointZ = 7.5f;
 
-            this.body.rotateAngleX = 0;
-            this.body.rotateAngleY = 12;
+            this.body.setRotationPoint(0f, 12f, -8f);
+            this.body.rotateAngleX = 0f;
             this.body.rotateAngleZ = MathHelper.cos(f * speed * 0.4F) * degree * 0.1F * f1;
         }
     }
 
     @Override
     protected Iterable<ModelRenderer> getHeadParts() {
-        return ImmutableList.of(head);
+        return this.headParts;
     }
 
     @Override
     protected Iterable<ModelRenderer> getBodyParts() {
-        return ImmutableList.of(body);
+        return this.bodyParts;
     }
 
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -131,3 +142,4 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
         modelRenderer.rotateAngleZ = z;
     }
 }
+
