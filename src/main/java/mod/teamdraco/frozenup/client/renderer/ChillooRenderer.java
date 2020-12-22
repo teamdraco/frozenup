@@ -56,67 +56,67 @@ public class ChillooRenderer extends MobRenderer<ChillooEntity, ChillooModel<Chi
 			return RED_BAND;
 		} else if(entity.isTamed() && entity.hasBlackBand()) {
 			return BLACK_BAND;
-		} else if(entity.hasBlueBand()) {
+		} else if(entity.isTamed() && entity.hasBlueBand()) {
 			return BLUE_BAND;
-		} else if(entity.hasBrownBand()) {
+		} else if(entity.isTamed() && entity.hasBrownBand()) {
 			return BROWN_BAND;
-		} else if(entity.hasCyanBand()) {
+		} else if(entity.isTamed() && entity.hasCyanBand()) {
 			return CYAN_BAND;
-		} else if(entity.hasGrayBand()) {
+		} else if(entity.isTamed() && entity.hasGrayBand()) {
 			return GRAY_BAND;
-		} else if(entity.hasGreenBand()) {
+		} else if(entity.isTamed() && entity.hasGreenBand()) {
 			return GREEN_BAND;
-		} else if(entity.hasLightBlueBand()) {
+		} else if(entity.isTamed() && entity.hasLightBlueBand()) {
 			return LIGHT_BLUE_BAND;
-		} else if(entity.hasLightGrayBand()) {
+		} else if(entity.isTamed() && entity.hasLightGrayBand()) {
 			return LIGHT_GRAY_BAND;
-		} else if(entity.hasLimeBand()) {
+		} else if(entity.isTamed() && entity.hasLimeBand()) {
 			return LIME_BAND;
-		} else if(entity.hasMagentaBand()) {
+		} else if(entity.isTamed() && entity.hasMagentaBand()) {
 			return MAGENTA_BAND;
-		} else if(entity.hasOrangeBand()) {
+		} else if(entity.isTamed() && entity.hasOrangeBand()) {
 			return ORANGE_BAND;
-		} else if(entity.hasPinkBand()) {
+		} else if(entity.isTamed() && entity.hasPinkBand()) {
 			return PINK_BAND;
-		} else if (entity.hasPurpleBand()) {
+		} else if (entity.isTamed() && entity.hasPurpleBand()) {
 			return PURPLE_BAND;
-		} else if(entity.hasRedBand()) {
+		} else if(entity.isTamed() && entity.hasRedBand()) {
 			return RED_BAND;
-		} else if (entity.hasWhiteBand()) {
+		} else if (entity.isTamed() && entity.hasWhiteBand()) {
 			return WHITE_BAND;
-		} else if(entity.hasYellowBand()) {
+		} else if(entity.isTamed() && entity.hasYellowBand()) {
 			return YELLOW_BAND;
-		} else if (entity.hasBlackSweater()) {
+		} else if (entity.isTamed() && entity.hasBlackSweater()) {
 			return BLACK;
-		} else if (entity.hasBlueSweater()) {
+		} else if (entity.isTamed() && entity.hasBlueSweater()) {
 			return BLUE;
-		} else if (entity.hasBrownSweater()) {
+		} else if (entity.isTamed() && entity.hasBrownSweater()) {
 			return BROWN;
-		} else if (entity.hasCyanSweater()) {
+		} else if (entity.isTamed() && entity.hasCyanSweater()) {
 			return CYAN;
-		} else if (entity.hasGraySweater()) {
+		} else if (entity.isTamed() && entity.hasGraySweater()) {
 			return GRAY;
-		} else if (entity.hasGreenSweater()) {
+		} else if (entity.isTamed() && entity.hasGreenSweater()) {
 			return GREEN;
-		} else if (entity.hasLightBlueSweater()) {
+		} else if (entity.isTamed() && entity.hasLightBlueSweater()) {
 			return LIGHT_BLUE;
-		} else if (entity.hasLightGraySweater()) {
+		} else if (entity.isTamed() && entity.hasLightGraySweater()) {
 			return LIGHT_GRAY;
-		} else if (entity.hasLimeSweater()) {
+		} else if (entity.isTamed() && entity.hasLimeSweater()) {
 			return LIME;
-		} else if(entity.hasMagentaSweater()) {
+		} else if(entity.isTamed() && entity.hasMagentaSweater()) {
 			return MAGENTA;
-		} else if (entity.hasOrangeSweater()) {
+		} else if (entity.isTamed() && entity.hasOrangeSweater()) {
 			return ORANGE;
-		} else if (entity.hasPinkSweater()) {
+		} else if (entity.isTamed() && entity.hasPinkSweater()) {
 			return PINK;
-		} else if (entity.hasPurpleSweater()) {
+		} else if (entity.isTamed() && entity.hasPurpleSweater()) {
 			return PURPLE;
-		} else if (entity.hasRedSweater()) {
+		} else if (entity.isTamed() && entity.hasRedSweater()) {
 			return RED;
-		} else if(entity.hasWhiteSweater()) {
+		} else if(entity.isTamed() && entity.hasWhiteSweater()) {
 			return WHITE;
-		} else if (entity.hasYellowSweater()) {
+		} else if (entity.isTamed() && entity.hasYellowSweater()) {
 			return YELLOW;
 		}
 		else {
