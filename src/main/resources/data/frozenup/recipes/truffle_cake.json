@@ -1,25 +1,29 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "AAA",
-    "BEB",
-    "CCC"
+    "###",
+    "CEC",
+    "WBW"
   ],
   "key": {
-    "A": {
+    "#": {
       "item": "minecraft:milk_bucket"
     },
-    "B": {
-      "item": "frozenup:truffle"
-    },
     "C": {
-      "item": "minecraft:wheat"
+      "item": "minecraft:cocoa_beans"
     },
     "E": {
       "item": "minecraft:egg"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    },
+    "B": {
+      "item": "frozenup:truffle"
     }
   },
   "result": {
-    "item": "frozenup:truffle_cake"
+    "item": "frozenup:truffle_cake",
+    "count": 1
   }
 }

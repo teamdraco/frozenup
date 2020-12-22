@@ -1,5 +1,6 @@
 package mod.teamdraco.frozenup;
 
+import mod.teamdraco.frozenup.common.CommonEvents;
 import mod.teamdraco.frozenup.entity.ChillooEntity;
 import mod.teamdraco.frozenup.init.FrozenUpBlocks;
 import mod.teamdraco.frozenup.init.FrozenUpEntities;
@@ -51,6 +52,7 @@ public class FrozenUp {
     }
 
     private void registerCommon(FMLCommonSetupEvent event) {
+    	CommonEvents.setup();
         registerEntityAttributes();
         EntitySpawnPlacementRegistry.register(FrozenUpEntities.CHILLOO.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
     }
