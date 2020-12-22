@@ -8,6 +8,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DrinkHelper;
@@ -25,6 +26,36 @@ public class MilkMugItem extends Item {
     */
    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
       if (!worldIn.isRemote) entityLiving.curePotionEffects(stack); // FORGE - move up so stack.shrink does not turn stack into air
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.BLINDNESS);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.ABSORPTION);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.DOLPHINS_GRACE);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.BAD_OMEN);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.CONDUIT_POWER);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.FIRE_RESISTANCE);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.GLOWING);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.HASTE);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.HEALTH_BOOST);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.HUNGER);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.INVISIBILITY);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.JUMP_BOOST);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.LEVITATION);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.LUCK);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.MINING_FATIGUE);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.NAUSEA);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.NIGHT_VISION);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.POISON);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.REGENERATION);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.RESISTANCE);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.SATURATION);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.SLOW_FALLING);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.SLOWNESS);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.SPEED);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.STRENGTH);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.UNLUCK);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WATER_BREATHING);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WEAKNESS);
+      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WITHER);
+      
 
       if (entityLiving instanceof ServerPlayerEntity) {
          ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)entityLiving;
