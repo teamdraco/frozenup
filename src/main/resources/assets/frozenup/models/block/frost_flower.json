@@ -1,6 +1,0 @@
-{
-    "parent": "block/cross",
-    "textures": {
-        "cross": "frozenup:block/frost_flower"
-    }
-}

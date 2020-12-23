@@ -8,6 +8,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
@@ -34,7 +35,9 @@ public class HotChocolateItem extends Item {
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.UNLUCK);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WEAKNESS);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WITHER);
-      
+
+      if (!worldIn.isRemote) entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 500, 0));
+
       if (entityLiving instanceof ServerPlayerEntity) {
          ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)entityLiving;
          CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, stack);

@@ -13,5 +13,4 @@ public class FrozenUpSounds {
     public static final RegistryObject<SoundEvent> CHILLOO_AMBIENT = REGISTER.register("chilloo_ambient", () -> new SoundEvent(new ResourceLocation(FrozenUp.MOD_ID, "chilloo.ambient")));
     public static final RegistryObject<SoundEvent> CHILLOO_HURT = REGISTER.register("chilloo_hurt", () -> new SoundEvent(new ResourceLocation(FrozenUp.MOD_ID, "chilloo.hurt")));
     public static final RegistryObject<SoundEvent> CHILLOO_DEATH = REGISTER.register("chilloo_death", () -> new SoundEvent(new ResourceLocation(FrozenUp.MOD_ID, "chilloo.death")));
-
 }

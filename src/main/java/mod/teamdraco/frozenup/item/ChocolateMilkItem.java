@@ -45,7 +45,6 @@ public class ChocolateMilkItem extends Item {
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.NAUSEA);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.NIGHT_VISION);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.POISON);
-      if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.REGENERATION);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.RESISTANCE);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.SATURATION);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.SLOW_FALLING);
@@ -55,6 +54,8 @@ public class ChocolateMilkItem extends Item {
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WATER_BREATHING);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WEAKNESS);
       if (!worldIn.isRemote) entityLiving.removePotionEffect(Effects.WITHER);
+
+      if (!worldIn.isRemote) entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 200, 0));
       if (!worldIn.isRemote) entityLiving.addPotionEffect(new EffectInstance(Effects.SPEED, 600, 1));
       
       if (entityLiving instanceof ServerPlayerEntity) {

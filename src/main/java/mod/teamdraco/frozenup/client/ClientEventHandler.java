@@ -17,6 +17,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = FrozenUp.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEventHandler {
+
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(FrozenUpEntities.CHILLOO.get(), ChillooRenderer::new);

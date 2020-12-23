@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 public class CommonEvents {
 	
 	public static void setup() {
-		registerCompostable(0.3F, FrozenUpItems.FROST_FLOWER.get());
 		registerCompostable(0.3F, FrozenUpItems.TRUFFLE.get());
 		registerCompostable(0.3F, FrozenUpItems.TRUFFLE_MUFFIN.get());
 		registerCompostable(0.5F, FrozenUpItems.TRUFFLE_CAKE.get());

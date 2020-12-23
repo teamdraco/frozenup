@@ -36,7 +36,6 @@ public class FrozenUp {
         FrozenUpItems.REGISTER.register(bus);
         FrozenUpSounds.REGISTER.register(bus);
         FrozenUpEntities.REGISTER.register(bus);
-        FrozenUpFeatures.REGISTER.register(bus);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -47,7 +46,6 @@ public class FrozenUp {
                 float temperature = climate.temperature;
                 if (climate.temperature <= 0.0f) {
                     event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(FrozenUpEntities.CHILLOO.get(), 1, 2, 3));
-                    event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION).add(() -> FrozenUpFeatures.FROST_FLOWER.get().withConfiguration(new FeatureSpreadConfig(5)).withPlacement(Features.Placements.VEGETATION_PLACEMENT).chance(1));
                 }
                 break;
         }
