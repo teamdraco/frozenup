@@ -53,7 +53,7 @@ public class DiggingGoal extends Goal {
     * Execute a one shot task or start executing a continuous task
     */
    public void startExecuting() {
-      this.eatingGrassTimer = 40;
+      this.eatingGrassTimer = 80;
       this.entityWorld.setEntityState(this.grassEaterEntity, (byte)10);
       this.grassEaterEntity.getNavigator().clearPath();
    }
