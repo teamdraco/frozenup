@@ -83,7 +83,7 @@ public class ChillooEntity extends TameableEntity {
 	private static final DataParameter<Boolean> RED_SWEATER = EntityDataManager.createKey(ChillooEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> WHITE_SWEATER = EntityDataManager.createKey(ChillooEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> YELLOW_SWEATER = EntityDataManager.createKey(ChillooEntity.class, DataSerializers.BOOLEAN);
-    public int timeUntilNextFeather = this.rand.nextInt(10000) + 5000;
+    public int timeUntilNextFeather = this.rand.nextInt(10000) + 2500;
 
     public boolean hasBlackBand() {
 		return this.dataManager.get(BLACK_BAND);

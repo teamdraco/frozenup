@@ -58,6 +58,12 @@ public class ChocolateMilkItem extends Item {
       if (!worldIn.isRemote) entityLiving.addPotionEffect(new EffectInstance(Effects.REGENERATION, 200, 0));
       if (!worldIn.isRemote) entityLiving.addPotionEffect(new EffectInstance(Effects.SPEED, 600, 1));
       
+
+      if (entityLiving instanceof PlayerEntity) {
+    	int newFoodLevel = ((PlayerEntity)entityLiving).getFoodStats().getFoodLevel() + 3;
+    	((PlayerEntity) entityLiving).getFoodStats().setFoodLevel(newFoodLevel);;  
+      }
+      
       if (entityLiving instanceof ServerPlayerEntity) {
          ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)entityLiving;
          CriteriaTriggers.CONSUME_ITEM.trigger(serverplayerentity, stack);
