@@ -82,12 +82,9 @@ public class DiggingGoal extends Goal {
                 BlockPos blockpos1 = blockpos.down();
                 if (entity.world.getBlockState(blockpos1).isIn(Blocks.GRASS_BLOCK)) {
                     entity.eatGrassBonus();
-
-                    if (ForgeEventFactory.getMobGriefingEvent(entity.world, entity)) {
-                        entity.world.playEvent(2001, blockpos1, Block.getStateId(Blocks.GRASS_BLOCK.getDefaultState()));
-                        List<ItemStack> items = entity.world.getServer().getLootTableManager().getLootTableFromLocation(DIGGING_LOOT).generate(new LootContext.Builder((ServerWorld) entity.world).withRandom(entity.getRNG()).build(LootParameterSets.EMPTY));
-                        InventoryHelper.dropItems(entity.world, blockpos, NonNullList.from(ItemStack.EMPTY, items.toArray(new ItemStack[0])));
-                    }
+                    entity.world.playEvent(2001, blockpos1, Block.getStateId(Blocks.GRASS_BLOCK.getDefaultState()));
+                    List<ItemStack> items = entity.world.getServer().getLootTableManager().getLootTableFromLocation(DIGGING_LOOT).generate(new LootContext.Builder((ServerWorld) entity.world).withRandom(entity.getRNG()).build(LootParameterSets.EMPTY));
+                    InventoryHelper.dropItems(entity.world, blockpos, NonNullList.from(ItemStack.EMPTY, items.toArray(new ItemStack[0])));
                 }
             }
         }
