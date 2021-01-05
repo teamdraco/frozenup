@@ -100,7 +100,7 @@ public class ChillooEntity extends TameableEntity {
 
     public DyeColor getBandColor() {
         byte color = dataManager.get(COLOR);
-        return color == -1 ? null : DyeColor.byId(color);
+        return color == -1 || color >= 16? null : DyeColor.byId(color);
     }
 
     public void setSweaterColor(DyeColor color) {
@@ -109,7 +109,7 @@ public class ChillooEntity extends TameableEntity {
 
     public DyeColor getSweaterColor() {
         byte color = dataManager.get(COLOR);
-        return color == -1 ? DyeColor.byId(color - 16) : null;
+        return color < 16 ? null : DyeColor.byId(color - 16);
     }
 
     public void setTamed(boolean tamed) {
@@ -158,11 +158,9 @@ public class ChillooEntity extends TameableEntity {
                             } else {
                                 entityDropItem(WOOL_BLOCKS.inverse().get(sweaterColor));
                             }
-                        } else {
-                            entityDropItem(DyeItem.getItem(bandColor));
                         }
                         if (!failed) {
-                            setBandColor(null);
+                            setBandColor(DyeColor.RED);
                             this.world.playMovingSound(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
                             stack.damageItem(1, player, playerEntity -> playerEntity.sendBreakAnimation(hand));
                         }
