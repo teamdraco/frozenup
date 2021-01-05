@@ -1,12 +1,7 @@
 package mod.teamdraco.frozenup.entity;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Maps;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import mod.teamdraco.frozenup.entity.ai.DiggingGoal;
 import mod.teamdraco.frozenup.init.FrozenUpEntities;
 import mod.teamdraco.frozenup.init.FrozenUpItems;
@@ -14,23 +9,10 @@ import mod.teamdraco.frozenup.init.FrozenUpSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.BreedGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -46,10 +28,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 
+import javax.annotation.Nullable;
+import java.util.UUID;
+
 public class ChillooEntity extends TameableEntity {
     public static final int DIG_ANIMATION_ID = 10;
     private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.COCOA_BEANS, Items.POTATO, Items.CARROT);
-    private static final Map<Block, DyeColor> WOOL_BLOCKS = new HashMap<>();
+    private static final BiMap<Block, DyeColor> WOOL_BLOCKS = HashBiMap.create(16);
     private static final DataParameter<Byte> COLOR = EntityDataManager.createKey(ChillooEntity.class, DataSerializers.BYTE);
     public int timeUntilNextFeather = this.rand.nextInt(10000) + 2500;
     public int digTimer = 0;
@@ -115,7 +100,7 @@ public class ChillooEntity extends TameableEntity {
 
     public DyeColor getBandColor() {
         byte color = dataManager.get(COLOR);
-        return color == -1 ? null : DyeColor.byId(color);
+        return color == -1 || color >= 16? null : DyeColor.byId(color);
     }
 
     public void setSweaterColor(DyeColor color) {
@@ -124,12 +109,13 @@ public class ChillooEntity extends TameableEntity {
 
     public DyeColor getSweaterColor() {
         byte color = dataManager.get(COLOR);
-        return color == -1 ? DyeColor.byId(color - 16) : null;
+        return color < 16 ? null : DyeColor.byId(color - 16);
     }
 
     public void setTamed(boolean tamed) {
         super.setTamed(tamed);
         if (tamed) {
+            this.setBandColor(DyeColor.RED);
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
             this.setHealth(20.0F);
         } else {
@@ -163,10 +149,21 @@ public class ChillooEntity extends TameableEntity {
                 DyeColor dyeColor = WOOL_BLOCKS.get(Block.getBlockFromItem(item));
                 if (dyeColor == null) {
                     if (item == Items.SHEARS) {
-                        setBandColor(null);
-                        this.world.playMovingSound(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                        this.world.addEntity(new ItemEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(Blocks.BLUE_WOOL.asItem())));
-                        stack.damageItem(1, player, playerEntity -> playerEntity.sendBreakAnimation(hand));
+                        boolean failed = false;
+                        DyeColor bandColor = getBandColor();
+                        if (bandColor == null) {
+                            DyeColor sweaterColor = getSweaterColor();
+                            if (sweaterColor == null) {
+                                failed = true;
+                            } else {
+                                entityDropItem(WOOL_BLOCKS.inverse().get(sweaterColor));
+                            }
+                        }
+                        if (!failed) {
+                            setBandColor(DyeColor.RED);
+                            this.world.playMovingSound(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                            stack.damageItem(1, player, playerEntity -> playerEntity.sendBreakAnimation(hand));
+                        }
                     } else {
                         func_233687_w_(!isEntitySleeping());
                         this.isJumping = false;
