@@ -35,6 +35,7 @@ public class DiggingGoal extends Goal {
 
     private final ChillooEntity entity;
     private int eatingGrassTimer;
+    private int digTimer;
 
     public DiggingGoal(ChillooEntity entity) {
         this.entity = entity;
@@ -46,6 +47,10 @@ public class DiggingGoal extends Goal {
      * method as well.
      */
     public boolean shouldExecute() {
+        if (digTimer > 0) {
+            --digTimer;
+            return false;
+        }
         if (entity.isEntitySleeping()) return false;
         if (entity.getRNG().nextInt(entity.isChild() ? 100 : 1000) != 0) return false;
         else {
@@ -57,6 +62,7 @@ public class DiggingGoal extends Goal {
 
     public void startExecuting() {
         eatingGrassTimer = 40;
+        digTimer = 6000;
         entity.world.setEntityState(entity, (byte) 10);
         entity.getNavigator().clearPath();
     }
@@ -74,6 +80,9 @@ public class DiggingGoal extends Goal {
     }
 
     public void tick() {
+        if (digTimer > 0) {
+            --digTimer;
+        }
         if (eatingGrassTimer > 0) --eatingGrassTimer;
         if (eatingGrassTimer == 25) {
             BlockPos blockpos = entity.getPosition();
