@@ -32,15 +32,15 @@ public class EffectUtil {
         return removed;
     }
 
+    public static boolean removeEffects(LivingEntity livingEntity, ItemStack stack, Predicate<EffectInstance> removalPredicate) {
+        return removeEffects(livingEntity, instance -> instance.isCurativeItem(stack) && removalPredicate.test(instance));
+    }
+
     public static boolean removeEffectsAsMilk(LivingEntity livingEntity, Predicate<EffectInstance> removalPredicate) {
-        return removeEffects(livingEntity, instance -> instance.isCurativeItem(MILK) && removalPredicate.test(instance));
+        return removeEffects(livingEntity, MILK, removalPredicate);
     }
 
     public static boolean removeEffectsAsMilk(LivingEntity livingEntity) {
         return removeEffectsAsMilk(livingEntity, instance -> true);
-    }
-
-    public static boolean removeEffects(LivingEntity livingEntity, ItemStack stack, Predicate<EffectInstance> removalPredicate) {
-        return removeEffects(livingEntity, instance -> instance.isCurativeItem(stack) && removalPredicate.test(instance));
     }
 }
