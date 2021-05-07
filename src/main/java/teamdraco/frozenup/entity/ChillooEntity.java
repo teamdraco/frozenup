@@ -1,35 +1,58 @@
 package teamdraco.frozenup.entity;
 
+import java.util.UUID;
+
+import javax.annotation.Nullable;
+
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import teamdraco.frozenup.entity.ai.DiggingGoal;
-import teamdraco.frozenup.init.FrozenUpEntities;
-import teamdraco.frozenup.init.FrozenUpItems;
-import teamdraco.frozenup.init.FrozenUpSounds;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.EntitySize;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.BreedGoal;
+import net.minecraft.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.entity.ai.goal.FollowParentGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.PanicGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.TemptGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
-
-import javax.annotation.Nullable;
-import java.util.UUID;
+import teamdraco.frozenup.entity.ai.DiggingGoal;
+import teamdraco.frozenup.init.FrozenUpEntities;
+import teamdraco.frozenup.init.FrozenUpItems;
+import teamdraco.frozenup.init.FrozenUpSounds;
 
 public class ChillooEntity extends TameableEntity {
     public static final int DIG_ANIMATION_ID = 10;
@@ -64,6 +87,7 @@ public class ChillooEntity extends TameableEntity {
         this.setTamed(false);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new SitGoal(this));
@@ -82,6 +106,7 @@ public class ChillooEntity extends TameableEntity {
         this.goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 6.0F));
     }
 
+    @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
         return this.isChild() ? 0.5F : 0.7F;
     }
@@ -90,6 +115,7 @@ public class ChillooEntity extends TameableEntity {
         return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 12.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, (double) 0.2F);
     }
 
+    @Override
     public boolean isBreedingItem(ItemStack stack) {
         return stack.getItem() == Items.WHEAT_SEEDS || stack.getItem() == Items.BEETROOT_SEEDS || stack.getItem() == Items.MELON_SEEDS || stack.getItem() == Items.COCOA_BEANS || stack.getItem() == Items.POTATO || stack.getItem() == Items.CARROT;
     }
@@ -112,6 +138,7 @@ public class ChillooEntity extends TameableEntity {
         return color < 16 ? null : DyeColor.byId(color - 16);
     }
 
+    @Override
     public void setTamed(boolean tamed) {
         super.setTamed(tamed);
         if (tamed) {
@@ -123,6 +150,7 @@ public class ChillooEntity extends TameableEntity {
         }
     }
 
+    @Override
     public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
         Item item = stack.getItem();
@@ -205,27 +233,33 @@ public class ChillooEntity extends TameableEntity {
         return chilloo;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return FrozenUpSounds.CHILLOO_AMBIENT.get();
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return FrozenUpSounds.CHILLOO_HURT.get();
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return FrozenUpSounds.CHILLOO_DEATH.get();
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
         this.playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1.0F);
     }
 
+    @Override
     protected void registerData() {
         super.registerData();
         this.dataManager.register(COLOR, (byte) 0);
     }
 
+    @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.dataManager.set(COLOR, compound.getByte("Colors"));
@@ -234,6 +268,7 @@ public class ChillooEntity extends TameableEntity {
         }
     }
 
+    @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putByte("Colors", this.dataManager.get(COLOR));

@@ -15,48 +15,42 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.LightType;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
-import java.util.Random;
+public class FeatherLampBlock extends Block {
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-public class FeatherLampBlock extends Block{
+    public FeatherLampBlock(Properties properties) {
+        super(properties);
+        this.setDefaultState(this.stateContainer.getBaseState().with(LIT, Boolean.valueOf(false)));
+        
+    }
 
-	public static final BooleanProperty LIT = BlockStateProperties.LIT;
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (state.get(LIT)) {
+            this.powerBlockOff(state, worldIn, pos);
+            this.playSound(player, worldIn, pos);
+            return ActionResultType.func_233537_a_(worldIn.isRemote);
+        } else {
+            this.powerBlockOn(state, worldIn, pos);
+            this.playSound(player, worldIn, pos);
+            return ActionResultType.func_233537_a_(worldIn.isRemote);
+        }
+    }
 
-	public FeatherLampBlock(Properties properties) {
-		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(LIT, Boolean.valueOf(false)));
-		
-	}
+    public void powerBlockOn(BlockState state, World world, BlockPos pos) {
+        world.setBlockState(pos, state.with(LIT, Boolean.valueOf(true)), 3);
+    }
 
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		if (state.get(LIT)) {
-			this.powerBlockOff(state, worldIn, pos);
-			this.playSound(player, worldIn, pos);
-			return ActionResultType.func_233537_a_(worldIn.isRemote);
-		} else {
-			this.powerBlockOn(state, worldIn, pos);
-			this.playSound(player, worldIn, pos);
-			return ActionResultType.func_233537_a_(worldIn.isRemote);
-		}
-	}
-	
-	public void powerBlockOn(BlockState state, World world, BlockPos pos) {
-		world.setBlockState(pos, state.with(LIT, Boolean.valueOf(true)), 3);
-	}
-	
-	public void powerBlockOff(BlockState state, World world, BlockPos pos) {
-		world.setBlockState(pos, state.with(LIT, Boolean.valueOf(false)), 3);
-	}
-	
-	protected void playSound(@Nullable PlayerEntity playerIn, IWorld worldIn, BlockPos pos) {
-		worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.5F);
-	}
+    public void powerBlockOff(BlockState state, World world, BlockPos pos) {
+        world.setBlockState(pos, state.with(LIT, Boolean.valueOf(false)), 3);
+    }
 
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(LIT);
-	}
-	
+    protected void playSound(@Nullable PlayerEntity playerIn, IWorld worldIn, BlockPos pos) {
+        worldIn.playSound(playerIn, pos, SoundEvents.BLOCK_WOODEN_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.5F);
+    }
+
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(LIT);
+    }
 }

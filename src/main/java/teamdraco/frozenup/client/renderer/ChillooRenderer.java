@@ -1,27 +1,28 @@
 package teamdraco.frozenup.client.renderer;
 
-import teamdraco.frozenup.FrozenUp;
-import teamdraco.frozenup.client.model.ChillooModel;
-import teamdraco.frozenup.entity.ChillooEntity;
+import java.util.function.Function;
+
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.function.Function;
+import teamdraco.frozenup.FrozenUp;
+import teamdraco.frozenup.client.model.ChillooModel;
+import teamdraco.frozenup.entity.ChillooEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class ChillooRenderer extends MobRenderer<ChillooEntity, ChillooModel<ChillooEntity>> {
-	private static final ResourceLocation TEXTURE = new ResourceLocation(FrozenUp.MOD_ID, "textures/entity/chilloo.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(FrozenUp.MOD_ID, "textures/entity/chilloo.png");
     private static final ResourceLocation[] COLOR_TEXTURES = new ResourceLocation[32];
 
-	public ChillooRenderer(EntityRendererManager renderManagerIn) {
-		super(renderManagerIn, new ChillooModel<>(), 0.5F);
-	}
+    public ChillooRenderer(EntityRendererManager renderManagerIn) {
+        super(renderManagerIn, new ChillooModel<>(), 0.5F);
+    }
 
-	public ResourceLocation getEntityTexture(ChillooEntity entity) {
+    @Override
+    public ResourceLocation getEntityTexture(ChillooEntity entity) {
         DyeColor bandColor = entity.getBandColor();
         if (bandColor == null) {
             DyeColor sweaterColor = entity.getSweaterColor();
@@ -32,7 +33,7 @@ public class ChillooRenderer extends MobRenderer<ChillooEntity, ChillooModel<Chi
         }
     }
 
-	private ResourceLocation getTexture(int color, Function<DyeColor, ResourceLocation> colorSupplier) {
+    private ResourceLocation getTexture(int color, Function<DyeColor, ResourceLocation> colorSupplier) {
         ResourceLocation colorTexture = COLOR_TEXTURES[color];
         if (colorTexture == null) {
             colorTexture = colorSupplier.apply(DyeColor.byId(color % 16));
