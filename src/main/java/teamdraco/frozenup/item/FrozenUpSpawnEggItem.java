@@ -20,7 +20,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class FrozenUpSpawnEggItem extends SpawnEggItem {
-
     public static final List<FrozenUpSpawnEggItem> UNADDED_EGGS = new ArrayList<FrozenUpSpawnEggItem>();
     private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 

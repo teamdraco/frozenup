@@ -1,11 +1,11 @@
 package teamdraco.frozenup.init;
 
-import teamdraco.frozenup.FrozenUp;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import teamdraco.frozenup.FrozenUp;
 
 public class FrozenUpSounds {
     public static final DeferredRegister<SoundEvent> REGISTER = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, FrozenUp.MOD_ID);

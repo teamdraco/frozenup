@@ -1,7 +1,9 @@
 package teamdraco.frozenup.entity.ai;
 
-import teamdraco.frozenup.FrozenUp;
-import teamdraco.frozenup.entity.ChillooEntity;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.function.Predicate;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -15,10 +17,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.function.Predicate;
+import teamdraco.frozenup.FrozenUp;
+import teamdraco.frozenup.entity.ChillooEntity;
 
 public class DiggingGoal extends Goal {
     private static final ResourceLocation DIGGING_LOOT = new ResourceLocation(FrozenUp.MOD_ID, "entities/chilloo_digging");
