@@ -18,10 +18,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import teamdraco.frozenup.common.CommonEvents;
 import teamdraco.frozenup.entity.ChillooEntity;
-import teamdraco.frozenup.init.FrozenUpBlocks;
-import teamdraco.frozenup.init.FrozenUpEntities;
-import teamdraco.frozenup.init.FrozenUpItems;
-import teamdraco.frozenup.init.FrozenUpSounds;
+import teamdraco.frozenup.init.*;
 
 @Mod(FrozenUp.MOD_ID)
 @Mod.EventBusSubscriber(modid = FrozenUp.MOD_ID)
@@ -36,6 +33,7 @@ public class FrozenUp {
         FrozenUpItems.REGISTER.register(bus);
         FrozenUpSounds.REGISTER.register(bus);
         FrozenUpEntities.REGISTER.register(bus);
+        FrozenUpFeatures.REGISTER.register(bus);
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

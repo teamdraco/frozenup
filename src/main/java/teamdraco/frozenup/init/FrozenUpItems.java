@@ -7,10 +7,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import teamdraco.frozenup.FrozenUp;
-import teamdraco.frozenup.item.ChocolateMilkMugItem;
-import teamdraco.frozenup.item.FrozenUpSpawnEggItem;
-import teamdraco.frozenup.item.HotChocolateMugItem;
-import teamdraco.frozenup.item.MilkMugItem;
+import teamdraco.frozenup.item.*;
 
 public class FrozenUpItems {
     public static final DeferredRegister<Item> REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, FrozenUp.MOD_ID);
@@ -30,4 +27,7 @@ public class FrozenUpItems {
     public static final RegistryObject<BlockItem> CHILLOO_FEATHER_BLOCK_CARPET = REGISTER.register("chilloo_feather_block_carpet", () -> new BlockItem(FrozenUpBlocks.CHILLOO_FEATHER_BLOCK_CARPET.get(), new Item.Properties().group(FrozenUp.GROUP)));
     public static final RegistryObject<BlockItem> TRUFFLE_CAKE = REGISTER.register("truffle_cake", () -> new BlockItem(FrozenUpBlocks.TRUFFLE_CAKE.get(), new Item.Properties().group(FrozenUp.GROUP).maxStackSize(1)));
     public static final RegistryObject<BlockItem> CHILLOO_FEATHER_LAMP = REGISTER.register("chilloo_feather_lamp", () -> new BlockItem(FrozenUpBlocks.CHILLOO_FEATHER_LAMP.get(), new Item.Properties().group(FrozenUp.GROUP)));
+
+    public static final RegistryObject<Item> TEST_ITEM = REGISTER.register("test_item", () -> new TestItem(new Item.Properties().group(FrozenUp.GROUP).maxStackSize(1)));
+
 }
