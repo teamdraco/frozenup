@@ -65,14 +65,14 @@ public class IceTreeFeature extends Feature<NoFeatureConfig>
             }
         }
         int leavesEnd = (higherStart?2:1)+extraHeight;
-        for (int i = height+4; i > leavesEnd; i--)
+        for (int i = height+4; i > leavesEnd; i--) //leaves placement
         {
             int size = height+4 - i;
             int finalSize = (size+2)/4;
-            boolean noMoreCORNERS = size % 4 >= 2;
+            boolean removeCorners = size % 4 >= 2;
             BlockPos leavesCenterPos = pos.up(i);
-            makeLeafSlice(leavesFiller, leavesCenterPos, finalSize, noMoreCORNERS);
-            if (noMoreCORNERS && finalSize > 1 && size % 4 == 2)
+            makeLeafSlice(leavesFiller, leavesCenterPos, finalSize, removeCorners);
+            if (removeCorners && finalSize > 1 && size % 4 == 2)
             {
                 for (Direction direction : directions)
                 {
