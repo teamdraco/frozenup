@@ -23,7 +23,7 @@ public class TestItem extends Item
         {
             ServerWorld serverWorld = (ServerWorld) world;
             BlockPos growPos = context.getPos().offset(context.getFace());
-            FrozenUpFeatures.ICICLE.generate(serverWorld, serverWorld.getChunkProvider().generator, world.rand, growPos, null);
+            FrozenUpFeatures.ICE_TREE.generate(serverWorld, serverWorld.getChunkProvider().generator, world.rand, growPos, null);
             return ActionResultType.SUCCESS;
         }
         return super.onItemUse(context);
