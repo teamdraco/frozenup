@@ -1,0 +1,28 @@
+{
+  "itemGroup.frozenup_item_group": "Frozen Up",
+
+  "item.frozenup.frozen_truffle": "Tartufo ghiacciato",
+  "item.frozenup.truffle": "Tartufo",
+  "item.frozenup.truffle_muffin": "Muffin al tartufo",
+  "item.frozenup.chilloo_spawn_egg": "Uovo generatore di chiloo",
+  "item.frozenup.chilloo_feather": "Piuma di chiloo",
+  "item.frozenup.empty_mug": "Tazzona vuota",
+  "item.frozenup.mug_of_chocolate_milk": "Tazzona di latte al cioccolato",
+  "item.frozenup.mug_of_truffle_hot_chocolate": "Tazzona di cioccolata calda con tartufo",
+  "item.frozenup.mug_of_milk": "Tazzona di latte",
+
+  "block.frozenup.chilloo_feather_block": "Blocco di piume di chiloo",
+  "block.frozenup.chilloo_feather_block_carpet": "Tappeto di blocco di piume di chiloo",
+  "block.frozenup.truffle_cake": "Torta di tartufo al cioccolato",
+  "block.frozenup.chilloo_feather_lamp": "Lampada di piume di chiloo",
+  "block.frozenup.empty_mug": "Tazzona vuota",
+  "block.frozenup.mug_of_milk": "Tazzona di latte",
+  "block.frozenup.mug_of_chocolate_milk": "Tazzona di latte al cioccolato",
+  "block.frozenup.mug_of_truffle_hot_chocolate": "Tazzona di cioccolata calda con tartufo",
+
+  "entity.frozenup.chilloo": "Chiloo",
+
+  "frozenup.chilloo.ambient": "Cinguettio del chiloo",
+  "frozenup.chilloo.hurt": "Chiloo ferito",
+  "frozenup.chilloo.death": "Chiloo muore"
+}
