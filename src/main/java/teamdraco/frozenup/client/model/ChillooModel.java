@@ -7,8 +7,11 @@ import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.frozenup.entity.ChillooEntity;
 
+@OnlyIn(Dist.CLIENT)
 public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> {
     public ModelRenderer body;
     public ModelRenderer tail;
@@ -148,14 +151,16 @@ public class ChillooModel<T extends Entity> extends AgeableModel<ChillooEntity> 
     }
 
     private static float getHeadRotationPointY(int timer, float partialTicks) {
-        if (timer >= 3 && timer <= 36) return 14f;
+        if (timer >= 3 && timer <= 36) {
+            return 14f;
+        }
         return timer < 4 ? ((float) timer - partialTicks) + 12f : -((float) (timer - 40) - partialTicks) * 0.5f + 12f;
     }
 
     private static float getHeadRotationAngleX(int timer, float partialTicks) {
         if (timer >= 3 && timer <= 36) {
-            float f = ((float)(timer - 4) - partialTicks) / 32.0F;
-            return ((float)Math.PI / 5F) + 0.21991149F * MathHelper.sin(f * 28.7F);
+            float f = ((float) (timer - 4) - partialTicks) / 32.0F;
+            return ((float) Math.PI / 5F) + 0.21991149F * MathHelper.sin(f * 28.7F);
         } else {
             return timer > 0 ? ((float) Math.PI / 5F) : 0;
         }

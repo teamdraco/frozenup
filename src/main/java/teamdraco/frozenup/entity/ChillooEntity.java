@@ -1,6 +1,9 @@
 package teamdraco.frozenup.entity;
 
+import java.util.EnumSet;
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
@@ -10,6 +13,7 @@ import com.google.common.collect.HashBiMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -17,42 +21,33 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.BreedGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameterSets;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
-import teamdraco.frozenup.entity.ai.DiggingGoal;
+import teamdraco.frozenup.FrozenUp;
 import teamdraco.frozenup.init.FrozenUpEntities;
 import teamdraco.frozenup.init.FrozenUpItems;
-import teamdraco.frozenup.init.FrozenUpSounds;
+import teamdraco.frozenup.init.FrozenUpSoundEvents;
 
 public class ChillooEntity extends TameableEntity {
     public static final int DIG_ANIMATION_ID = 10;
@@ -112,7 +107,7 @@ public class ChillooEntity extends TameableEntity {
     }
 
     public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 12.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, (double) 0.2F);
+        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 12.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     @Override
@@ -126,7 +121,7 @@ public class ChillooEntity extends TameableEntity {
 
     public DyeColor getBandColor() {
         byte color = dataManager.get(COLOR);
-        return color == -1 || color >= 16? null : DyeColor.byId(color);
+        return color == -1 || color >= 16 ? null : DyeColor.byId(color);
     }
 
     public void setSweaterColor(DyeColor color) {
@@ -138,6 +133,7 @@ public class ChillooEntity extends TameableEntity {
         return color < 16 ? null : DyeColor.byId(color - 16);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void setTamed(boolean tamed) {
         super.setTamed(tamed);
@@ -218,7 +214,9 @@ public class ChillooEntity extends TameableEntity {
                 this.entityDropItem(FrozenUpItems.CHILLOO_FEATHER.get());
                 this.timeUntilNextFeather = this.rand.nextInt(10000) + 5000;
             }
-        } else if (digTimer > 0) --digTimer;
+        } else if (digTimer > 0) {
+            --digTimer;
+        }
     }
 
     @Nullable
@@ -226,7 +224,7 @@ public class ChillooEntity extends TameableEntity {
     public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity ageable) {
         ChillooEntity chilloo = FrozenUpEntities.CHILLOO.get().create(this.world);
         UUID uuid = this.getOwnerId();
-        if (uuid != null) {
+        if (chilloo != null) {
             chilloo.setOwnerId(uuid);
             chilloo.setTamed(true);
         }
@@ -235,17 +233,17 @@ public class ChillooEntity extends TameableEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return FrozenUpSounds.CHILLOO_AMBIENT.get();
+        return FrozenUpSoundEvents.ENTITY_CHILLOO_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return FrozenUpSounds.CHILLOO_HURT.get();
+        return FrozenUpSoundEvents.ENTITY_CHILLOO_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return FrozenUpSounds.CHILLOO_DEATH.get();
+        return FrozenUpSoundEvents.ENTITY_CHILLOO_DEATH;
     }
 
     @Override
@@ -282,7 +280,90 @@ public class ChillooEntity extends TameableEntity {
 
     @Override
     public void handleStatusUpdate(byte id) {
-        if (id == DIG_ANIMATION_ID) this.digTimer = 40;
-        else super.handleStatusUpdate(id);
+        if (id == DIG_ANIMATION_ID) {
+            this.digTimer = 40;
+        } else {
+            super.handleStatusUpdate(id);
+        }
+    }
+
+    static class DiggingGoal extends Goal {
+        private static final ResourceLocation DIGGING_LOOT = new ResourceLocation(FrozenUp.MOD_ID, "entities/chilloo_digging");
+        private static final Predicate<BlockState> IS_GRASS = BlockStateMatcher.forBlock(Blocks.GRASS);
+
+        private final ChillooEntity entity;
+        private int eatingGrassTimer;
+        private int digTimer;
+
+        public DiggingGoal(ChillooEntity entity) {
+            this.entity = entity;
+            setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK, Goal.Flag.JUMP));
+        }
+
+        @Override
+        public boolean shouldExecute() {
+            if (digTimer > 0) {
+                --digTimer;
+                return false;
+            }
+            if (entity.isEntitySleeping()) {
+                return false;
+            }
+            if (entity.getRNG().nextInt(entity.isChild() ? 100 : 1000) != 0) {
+                return false;
+            } else {
+                BlockPos blockpos = entity.getPosition();
+                if (IS_GRASS.test(entity.world.getBlockState(blockpos))) {
+                    return true;
+                } else {
+                    return entity.world.getBlockState(blockpos.down()).isIn(Blocks.GRASS_BLOCK);
+                }
+            }
+        }
+
+        @Override
+        public void startExecuting() {
+            eatingGrassTimer = 40;
+            digTimer = 6000;
+            entity.world.setEntityState(entity, (byte) 10);
+            entity.getNavigator().clearPath();
+        }
+
+        @Override
+        public void resetTask() {
+            eatingGrassTimer = 0;
+        }
+
+        @Override
+        public boolean shouldContinueExecuting() {
+            return eatingGrassTimer > 0;
+        }
+
+        @Override
+        public void tick() {
+            if (digTimer > 0) {
+                --digTimer;
+            }
+            if (eatingGrassTimer > 0) {
+                --eatingGrassTimer;
+            }
+            if (eatingGrassTimer == 25) {
+                BlockPos blockpos = entity.getPosition();
+                if (IS_GRASS.test(entity.world.getBlockState(blockpos))) {
+                    entity.eatGrassBonus();
+                } else {
+                    BlockPos blockpos1 = blockpos.down();
+                    if (entity.world.getBlockState(blockpos1).isIn(Blocks.GRASS_BLOCK)) {
+                        entity.eatGrassBonus();
+                        entity.world.playEvent(2001, blockpos1, Block.getStateId(Blocks.GRASS_BLOCK.getDefaultState()));
+                        MinecraftServer server = entity.world.getServer();
+                        if (server != null) {
+                            List<ItemStack> items = server.getLootTableManager().getLootTableFromLocation(DIGGING_LOOT).generate(new LootContext.Builder((ServerWorld) entity.world).withRandom(entity.getRNG()).build(LootParameterSets.EMPTY));
+                            InventoryHelper.dropItems(entity.world, blockpos, NonNullList.from(ItemStack.EMPTY, items.toArray(new ItemStack[0])));
+                        }
+                    }
+                }
+            }
+        }
     }
 }

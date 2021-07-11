@@ -26,7 +26,9 @@ public class ChillooRenderer extends MobRenderer<ChillooEntity, ChillooModel<Chi
         DyeColor bandColor = entity.getBandColor();
         if (bandColor == null) {
             DyeColor sweaterColor = entity.getSweaterColor();
-            if (sweaterColor == null) return TEXTURE;
+            if (sweaterColor == null) {
+                return TEXTURE;
+            }
             return getTexture(sweaterColor.ordinal() + 16, color -> new ResourceLocation(FrozenUp.MOD_ID, "textures/entity/sweaters/" + color.getTranslationKey() + ".png"));
         } else {
             return getTexture(bandColor.ordinal(), color -> new ResourceLocation(FrozenUp.MOD_ID, "textures/entity/bands/" + color.getTranslationKey() + ".png"));

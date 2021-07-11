@@ -19,19 +19,21 @@ import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
+@SuppressWarnings("unused")
 public class FrozenUpSpawnEggItem extends SpawnEggItem {
-    public static final List<FrozenUpSpawnEggItem> UNADDED_EGGS = new ArrayList<FrozenUpSpawnEggItem>();
+    public static final List<FrozenUpSpawnEggItem> UNADDED_EGGS = new ArrayList<>();
     private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
     public FrozenUpSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour, final Item.Properties properties) {
-        super(null, primaryColour, secondaryColour, properties);
+        super(entityTypeSupplier.get(), primaryColour, secondaryColour, properties);
         this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
         UNADDED_EGGS.add(this);
     }
 
+    @SuppressWarnings("ConstantConditions")
     public FrozenUpSpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour, final Item.Properties properties) {
         super(null, primaryColour, secondaryColour, properties);
-        this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
+        this.entityTypeSupplier = Lazy.of(entityTypeSupplier);
         UNADDED_EGGS.add(this);
     }
 
@@ -48,9 +50,11 @@ public class FrozenUpSpawnEggItem extends SpawnEggItem {
             }
         };
 
-        for (final SpawnEggItem spawnEgg : UNADDED_EGGS) {
-            EGGS.put(spawnEgg.getType(null), spawnEgg);
-            DispenserBlock.registerDispenseBehavior(spawnEgg, dispenseBehaviour);
+        if (EGGS != null) {
+            for (final SpawnEggItem spawnEgg : UNADDED_EGGS) {
+                EGGS.put(spawnEgg.getType(null), spawnEgg);
+                DispenserBlock.registerDispenseBehavior(spawnEgg, dispenseBehaviour);
+            }
         }
         UNADDED_EGGS.clear();
     }

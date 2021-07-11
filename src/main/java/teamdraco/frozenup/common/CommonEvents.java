@@ -14,7 +14,7 @@ public class CommonEvents {
         registerCompostable(0.3F, FrozenUpItems.TRUFFLE_MUFFIN.get());
         registerCompostable(0.5F, FrozenUpItems.TRUFFLE_CAKE.get());
     }
-    
+
     public static void registerCompostable(float chance, IItemProvider item) {
         ComposterBlock.CHANCES.put(item.asItem(), chance);
     }

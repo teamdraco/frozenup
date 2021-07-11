@@ -31,7 +31,7 @@ public class FrozenUp {
 
         FrozenUpBlocks.REGISTER.register(bus);
         FrozenUpItems.REGISTER.register(bus);
-        FrozenUpSounds.REGISTER.register(bus);
+        FrozenUpSoundEvents.REGISTER.register(bus);
         FrozenUpEntities.REGISTER.register(bus);
         FrozenUpFeatures.REGISTER.register(bus);
     }
@@ -49,11 +49,12 @@ public class FrozenUp {
         EntitySpawnPlacementRegistry.register(FrozenUpEntities.CHILLOO.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
     }
 
+    @SuppressWarnings("deprecation")
     private void registerEntityAttributes() {
         GlobalEntityTypeAttributes.put(FrozenUpEntities.CHILLOO.get(), ChillooEntity.createAttributes().create());
     }
 
-    public final static ItemGroup GROUP = new ItemGroup("frozenup_item_group") {
+    public final static ItemGroup GROUP = new ItemGroup(FrozenUp.MOD_ID + ".item_group") {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(FrozenUpItems.CHILLOO_FEATHER.get());

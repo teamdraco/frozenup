@@ -1,33 +1,51 @@
 {
-  "chilloo.ambient": {
-    "subtitle": "frozenup.chilloo.ambient",
+  "entity.chilloo.ambient": {
     "sounds": [
-      {
-        "name": "frozenup:chilloo/ambient_1",
-        "streaming": true
-      },
-      {
-        "name": "frozenup:chilloo/ambient_2",
-        "streaming": true
-      }
-    ]
+      "frozenup:entity/chilloo/ambient1",
+      "frozenup:entity/chilloo/ambient2"
+    ],
+    "subtitle": "subtitles.frozenup.entity.chilloo.ambient"
   },
-  "chilloo.hurt": {
-    "subtitle": "frozenup.chilloo.hurt",
+  "entity.chilloo.hurt": {
     "sounds": [
-      {
-        "name": "frozenup:chilloo/hurt",
-        "streaming": true
-      }
-    ]
+      "frozenup:entity/chilloo/hurt"
+    ],
+    "subtitle": "subtitles.frozenup.entity.chilloo.hurt"
   },
-  "chilloo.death": {
-    "subtitle": "frozenup.chilloo.death",
+  "entity.chilloo.death": {
     "sounds": [
-      {
-        "name": "frozenup:chilloo/death",
-        "streaming": true
-      }
-    ]
+      "frozenup:entity/chilloo/death"
+    ],
+    "subtitle": "subtitles.frozenup.entity.chilloo.death"
+  },
+
+  "block.chilloo_feather_block.break": {
+    "sounds": [
+      "frozenup:block/chilloo_feather_block/soft1",
+      "frozenup:block/chilloo_feather_block/soft2",
+      "frozenup:block/chilloo_feather_block/soft3"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.chilloo_feather_block.place": {
+    "sounds": [
+      "frozenup:block/chilloo_feather_block/soft1",
+      "frozenup:block/chilloo_feather_block/soft2",
+      "frozenup:block/chilloo_feather_block/soft3"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+
+  "block.chilloo_feather_lamp.toggle_on": {
+    "sounds": [
+      "frozenup:block/chilloo_feather_lamp/toggle_on"
+    ],
+    "subtitle": "subtitles.frozenup.block.chilloo_feather_lamp.toggle_on"
+  },
+  "block.chilloo_feather_lamp.toggle_off": {
+    "sounds": [
+      "frozenup:block/chilloo_feather_lamp/toggle_off"
+    ],
+    "subtitle": "subtitles.frozenup.block.chilloo_feather_lamp.toggle_off"
   }
 }
