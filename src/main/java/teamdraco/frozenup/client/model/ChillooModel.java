@@ -3,10 +3,6 @@ package teamdraco.frozenup.client.model;
 import java.util.Collections;
 import java.util.List;
 
-import net.minecraft.client.renderer.entity.model.AgeableModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.frozenup.entity.ChillooEntity;

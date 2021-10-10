@@ -1,10 +1,5 @@
 package teamdraco.frozenup.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectType;
-import net.minecraft.world.World;
 import teamdraco.frozenup.util.Util;
 
 public class TruffleHotChocolateMugItem extends AbstractDrinkableMugItem {

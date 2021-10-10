@@ -1,7 +1,5 @@
 package teamdraco.frozenup.common;
 
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import teamdraco.frozenup.FrozenUp;
