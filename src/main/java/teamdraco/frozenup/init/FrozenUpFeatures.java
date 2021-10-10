@@ -1,7 +1,5 @@
 package teamdraco.frozenup.init;
 
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import teamdraco.frozenup.FrozenUp;

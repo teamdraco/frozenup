@@ -1,19 +1,19 @@
 package teamdraco.frozenup.world.gen.feature;
 
-import net.minecraft.block.*;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 import java.util.Random;
 
-import static net.minecraft.world.gen.feature.NoFeatureConfig.field_236558_a_;
-
-public class IcicleFeature extends Feature<NoFeatureConfig> {
+public class IcicleFeature extends Feature<NoneFeatureConfiguration> {
     public IcicleFeature() {
         super(field_236558_a_);
     }
@@ -27,12 +27,12 @@ public class IcicleFeature extends Feature<NoFeatureConfig> {
     public static int extraSideIcicleHeight = 1; //maximum possible randomized increase in height
 
     public static BlockState iceBlock() {
-        return Blocks.PACKED_ICE.getDefaultState();
+        return Blocks.PACKED_ICE.defaultBlockState();
     }
 
     @Override
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
-        if (reader.isAirBlock(pos.down())) {
+    public boolean generate(LevelAccessor reader, ChunkGenerator generator, Random rand, BlockPos pos, NoneFeatureConfiguration config) {
+        if (reader.isEmptyBlock(pos.below())) {
             return false;
         }
 
@@ -43,7 +43,7 @@ public class IcicleFeature extends Feature<NoFeatureConfig> {
 
         for (int i = 0; i <= height; i++) //trunk placement
         {
-            BlockPos icePos = pos.up(i);
+            BlockPos icePos = pos.above(i);
             if (canPlace(reader, icePos)) {
                 filler.entries.add(new WorldGenFiller.BlockStateEntry(iceBlock(), icePos));
             } else {
@@ -67,11 +67,11 @@ public class IcicleFeature extends Feature<NoFeatureConfig> {
         return true;
     }
 
-    public static void downwardsIce(ISeedReader reader, WorldGenFiller filler, BlockPos pos) {
+    public static void downwardsIce(LevelAccessor reader, WorldGenFiller filler, BlockPos pos) {
         int i = 0;
         do {
             i++;
-            BlockPos icePos = pos.down(i);
+            BlockPos icePos = pos.below(i);
             if (canPlace(reader, icePos)) {
                 filler.entries.add(new WorldGenFiller.BlockStateEntry(iceBlock(), icePos));
             } else {
@@ -83,11 +83,11 @@ public class IcicleFeature extends Feature<NoFeatureConfig> {
         } while (true);
     }
 
-    public static boolean canPlace(ISeedReader reader, BlockPos pos) {
-        if (World.isOutsideBuildHeight(pos)) {
+    public static boolean canPlace(LevelAccessor reader, BlockPos pos) {
+        if (Level.isOutsideBuildHeight(pos)) {
             return false;
         }
         BlockState state = reader.getBlockState(pos);
-        return reader.isAirBlock(pos) || state.getMaterial().isReplaceable();
+        return reader.isEmptyBlock(pos) || state.getMaterial().isReplaceable();
     }
 }

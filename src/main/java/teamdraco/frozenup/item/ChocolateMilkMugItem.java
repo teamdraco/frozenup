@@ -1,12 +1,5 @@
 package teamdraco.frozenup.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.world.World;
-
 public class ChocolateMilkMugItem extends MilkMugItem {
     public ChocolateMilkMugItem(Block block, Properties properties) {
         super(block, properties);

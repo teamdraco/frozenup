@@ -2,10 +2,7 @@ package teamdraco.frozenup.client.renderer;
 
 import java.util.function.Function;
 
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.item.DyeColor;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import teamdraco.frozenup.FrozenUp;

@@ -1,11 +1,5 @@
 package teamdraco.frozenup.init;
 
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import teamdraco.frozenup.FrozenUp;

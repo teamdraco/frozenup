@@ -1,19 +1,6 @@
 package teamdraco.frozenup.world.gen.feature;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-
 import java.util.Random;
-
-import static net.minecraft.world.gen.feature.NoFeatureConfig.field_236558_a_;
 
 public class IceTreeFeature extends Feature<NoFeatureConfig> {
     public IceTreeFeature() {

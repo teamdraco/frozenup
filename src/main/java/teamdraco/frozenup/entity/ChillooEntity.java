@@ -10,51 +10,65 @@ import javax.annotation.Nullable;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.SitWhenOrderedToGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraftforge.event.ForgeEventFactory;
 import teamdraco.frozenup.FrozenUp;
 import teamdraco.frozenup.init.FrozenUpEntities;
 import teamdraco.frozenup.init.FrozenUpItems;
 import teamdraco.frozenup.init.FrozenUpSoundEvents;
 
-public class ChillooEntity extends TameableEntity {
+public class ChillooEntity extends TamableAnimal {
     public static final int DIG_ANIMATION_ID = 10;
-    private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.COCOA_BEANS, Items.POTATO, Items.CARROT);
+    private static final Ingredient TEMPTATION_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.BEETROOT_SEEDS, Items.MELON_SEEDS, Items.COCOA_BEANS, Items.POTATO, Items.CARROT);
     private static final BiMap<Block, DyeColor> WOOL_BLOCKS = HashBiMap.create(16);
-    private static final DataParameter<Byte> COLOR = EntityDataManager.createKey(ChillooEntity.class, DataSerializers.BYTE);
-    public int timeUntilNextFeather = this.rand.nextInt(10000) + 2500;
+    private static final EntityDataAccessor<Byte> COLOR = SynchedEntityData.defineId(ChillooEntity.class, EntityDataSerializers.BYTE);
+    public int timeUntilNextFeather = this.random.nextInt(10000) + 2500;
     public int digTimer = 0;
 
     static {
@@ -76,67 +90,65 @@ public class ChillooEntity extends TameableEntity {
         WOOL_BLOCKS.put(Blocks.BLACK_WOOL, DyeColor.BLACK);
     }
 
-    public ChillooEntity(EntityType<? extends ChillooEntity> type, World worldIn) {
+    public ChillooEntity(EntityType<? extends ChillooEntity> type, Level worldIn) {
         super(type, worldIn);
-        this.stepHeight = 1;
-        this.setTamed(false);
+        this.setTame(false);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new SitGoal(this));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(2, new PanicGoal(this, 1.4D));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(4, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
+        this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, TEMPTATION_ITEMS, false));
         this.goalSelector.addGoal(6, new DiggingGoal(this));
         this.goalSelector.addGoal(7, new FollowParentGoal(this, 1.1D) {
             @Override
-            public boolean shouldExecute() {
-                return !isTamed() && super.shouldExecute();
+            public boolean canUse() {
+                return !isTame() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
-        this.goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
-        return this.isChild() ? 0.5F : 0.7F;
+    protected float getStandingEyeHeight(Pose poseIn, EntityDimensions sizeIn) {
+        return this.isBaby() ? 0.5F : 0.7F;
     }
 
-    public static AttributeModifierMap.MutableAttribute createAttributes() {
-        return MobEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 12.0D).createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.2F);
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 12.0D).add(Attributes.MOVEMENT_SPEED, 0.2F);
     }
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         return stack.getItem() == Items.WHEAT_SEEDS || stack.getItem() == Items.BEETROOT_SEEDS || stack.getItem() == Items.MELON_SEEDS || stack.getItem() == Items.COCOA_BEANS || stack.getItem() == Items.POTATO || stack.getItem() == Items.CARROT;
     }
 
     public void setBandColor(DyeColor color) {
-        dataManager.set(COLOR, color == null ? -1 : (byte) color.ordinal());
+    	entityData.set(COLOR, color == null ? -1 : (byte) color.ordinal());
     }
 
     public DyeColor getBandColor() {
-        byte color = dataManager.get(COLOR);
+        byte color = entityData.get(COLOR);
         return color == -1 || color >= 16 ? null : DyeColor.byId(color);
     }
 
     public void setSweaterColor(DyeColor color) {
-        dataManager.set(COLOR, color == null ? -1 : (byte) (color.ordinal() + 16));
+    	entityData.set(COLOR, color == null ? -1 : (byte) (color.ordinal() + 16));
     }
 
     public DyeColor getSweaterColor() {
-        byte color = dataManager.get(COLOR);
+        byte color = entityData.get(COLOR);
         return color < 16 ? null : DyeColor.byId(color - 16);
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
-    public void setTamed(boolean tamed) {
-        super.setTamed(tamed);
+    public void setTame(boolean tamed) {
+        super.setTame(tamed);
         if (tamed) {
             this.setBandColor(DyeColor.RED);
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20.0D);
@@ -147,30 +159,30 @@ public class ChillooEntity extends TameableEntity {
     }
 
     @Override
-    public ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
         Item item = stack.getItem();
-        if (item == FrozenUpItems.FROZEN_TRUFFLE.get() && !this.isTamed()) {
-            if (!player.abilities.isCreativeMode) {
+        if (item == FrozenUpItems.FROZEN_TRUFFLE.get() && !this.isTame()) {
+            if (!player.isCreative()) {
                 stack.shrink(1);
             }
             if (!ForgeEventFactory.onAnimalTame(this, player)) {
-                this.setTamedBy(player);
-                this.navigator.clearPath();
-                this.func_233687_w_(true);
-                this.world.setEntityState(this, (byte) 7);
+                this.tame(player);
+                this.navigation.stop();;
+                this.setOrderedToSit(true);
+                this.level.broadcastEntityEvent(this, (byte) 7);
             } else {
-                this.world.setEntityState(this, (byte) 6);
+                this.level.broadcastEntityEvent(this, (byte) 6);
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        if (this.isOwner(player)) {
+        if (this.isOwnedBy(player)) {
             if (item instanceof DyeItem) {
                 setBandColor(((DyeItem) item).getDyeColor());
                 stack.shrink(1);
             } else {
-                DyeColor dyeColor = WOOL_BLOCKS.get(Block.getBlockFromItem(item));
+                DyeColor dyeColor = WOOL_BLOCKS.get(Block.byItem(item));
                 if (dyeColor == null) {
                     if (item == Items.SHEARS) {
                         boolean failed = false;
@@ -180,18 +192,22 @@ public class ChillooEntity extends TameableEntity {
                             if (sweaterColor == null) {
                                 failed = true;
                             } else {
-                                entityDropItem(WOOL_BLOCKS.inverse().get(sweaterColor));
+                            	ItemEntity itementity = this.spawnAtLocation(WOOL_BLOCKS.inverse().get(sweaterColor), 1);
+                                if (itementity != null) {
+                                   itementity.setDeltaMovement(itementity.getDeltaMovement().add((double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F), (double)(this.random.nextFloat() * 0.05F), (double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F)));
+                                }
                             }
                         }
                         if (!failed) {
                             setBandColor(DyeColor.RED);
-                            this.world.playMovingSound(null, this, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                            stack.damageItem(1, player, playerEntity -> playerEntity.sendBreakAnimation(hand));
-                        }
+                            this.level.playSound(null, this, SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+                            stack.hurtAndBreak(1, player, (p_29822_) -> {
+                                p_29822_.broadcastBreakEvent(hand);
+                             });                        }
                     } else {
-                        func_233687_w_(!isEntitySleeping());
-                        this.isJumping = false;
-                        this.navigator.clearPath();
+                        func_233687_w_(!isSleeping());
+                        this.jumping = false;
+                        this.navigation.stop();
                         stack.shrink(1);
                     }
                 } else {
@@ -199,20 +215,20 @@ public class ChillooEntity extends TameableEntity {
                     stack.shrink(1);
                 }
             }
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return super.func_230254_b_(player, hand);
+        return super.mobInteract(player, hand);
     }
 
     @Override
     public void livingTick() {
         super.livingTick();
-        if (!this.world.isRemote) {
-            if (this.isAlive() && !this.isChild() && --this.timeUntilNextFeather <= 0 && this.isTamed()) {
-                this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+        if (!this.level.isRemote) {
+            if (this.isAlive() && !this.isBaby() && --this.timeUntilNextFeather <= 0 && this.isTame()) {
+                this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.entityDropItem(FrozenUpItems.CHILLOO_FEATHER.get());
-                this.timeUntilNextFeather = this.rand.nextInt(10000) + 5000;
+                this.timeUntilNextFeather = this.random.nextInt(10000) + 5000;
             }
         } else if (digTimer > 0) {
             --digTimer;
@@ -221,15 +237,16 @@ public class ChillooEntity extends TameableEntity {
 
     @Nullable
     @Override
-    public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity ageable) {
-        ChillooEntity chilloo = FrozenUpEntities.CHILLOO.get().create(this.world);
-        UUID uuid = this.getOwnerId();
-        if (chilloo != null) {
-            chilloo.setOwnerId(uuid);
-            chilloo.setTamed(true);
+    public ChillooEntity getBreedOffspring(ServerLevel p_149088_, AgeableMob p_149089_) {
+    	ChillooEntity chilloo = FrozenUpEntities.CHILLOO.get().create(p_149088_);
+        UUID uuid = this.getOwnerUUID();
+        if (uuid != null) {
+        	chilloo.setOwnerUUID(uuid);
+        	chilloo.setTame(true);
         }
+
         return chilloo;
-    }
+     }
 
     @Override
     protected SoundEvent getAmbientSound() {
@@ -248,7 +265,7 @@ public class ChillooEntity extends TameableEntity {
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState blockIn) {
-        this.playSound(SoundEvents.ENTITY_SHEEP_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.SHEEP_STEP, 0.15F, 1.0F);
     }
 
     @Override
@@ -269,7 +286,7 @@ public class ChillooEntity extends TameableEntity {
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putByte("Colors", this.dataManager.get(COLOR));
+        compound.putByte("Colors", this.entityData.get(COLOR));
         compound.putInt("FeatherLayTime", this.timeUntilNextFeather);
     }
 
@@ -306,17 +323,17 @@ public class ChillooEntity extends TameableEntity {
                 --digTimer;
                 return false;
             }
-            if (entity.isEntitySleeping()) {
+            if (entity.isSleeping()) {
                 return false;
             }
-            if (entity.getRNG().nextInt(entity.isChild() ? 100 : 1000) != 0) {
+            if (entity.getRandom().nextInt(entity.isBaby() ? 100 : 1000) != 0) {
                 return false;
             } else {
                 BlockPos blockpos = entity.getPosition();
-                if (IS_GRASS.test(entity.world.getBlockState(blockpos))) {
+                if (IS_GRASS.test(entity.level.getBlockState(blockpos))) {
                     return true;
                 } else {
-                    return entity.world.getBlockState(blockpos.down()).isIn(Blocks.GRASS_BLOCK);
+                    return entity.level.getBlockState(blockpos.world()).isIn(Blocks.GRASS_BLOCK);
                 }
             }
         }
@@ -325,8 +342,8 @@ public class ChillooEntity extends TameableEntity {
         public void startExecuting() {
             eatingGrassTimer = 40;
             digTimer = 6000;
-            entity.world.setEntityState(entity, (byte) 10);
-            entity.getNavigator().clearPath();
+            entity.level.broadcastEntityEvent(entity, (byte) 10);
+            entity.getNavigation().stop();
         }
 
         @Override
@@ -349,17 +366,17 @@ public class ChillooEntity extends TameableEntity {
             }
             if (eatingGrassTimer == 25) {
                 BlockPos blockpos = entity.getPosition();
-                if (IS_GRASS.test(entity.world.getBlockState(blockpos))) {
+                if (IS_GRASS.test(entity.level.getBlockState(blockpos))) {
                     entity.eatGrassBonus();
                 } else {
-                    BlockPos blockpos1 = blockpos.down();
-                    if (entity.world.getBlockState(blockpos1).isIn(Blocks.GRASS_BLOCK)) {
+                    BlockPos blockpos1 = blockpos.below();
+                    if (entity.level.getBlockState(blockpos1).is(Blocks.GRASS_BLOCK)) {
                         entity.eatGrassBonus();
-                        entity.world.playEvent(2001, blockpos1, Block.getStateId(Blocks.GRASS_BLOCK.getDefaultState()));
-                        MinecraftServer server = entity.world.getServer();
+                        entity.level.playEvent(2001, blockpos1, Block.getStateId(Blocks.GRASS_BLOCK.defaultBlockState()));
+                        MinecraftServer server = entity.level.getServer();
                         if (server != null) {
-                            List<ItemStack> items = server.getLootTableManager().getLootTableFromLocation(DIGGING_LOOT).generate(new LootContext.Builder((ServerWorld) entity.world).withRandom(entity.getRNG()).build(LootParameterSets.EMPTY));
-                            InventoryHelper.dropItems(entity.world, blockpos, NonNullList.from(ItemStack.EMPTY, items.toArray(new ItemStack[0])));
+                            List<ItemStack> items = server.getLootTableManager().getLootTableFromLocation(DIGGING_LOOT).generate(new LootContext.Builder((ServerLevel) entity.level).withRandom(entity.getRandom()).build(LootParameterSets.EMPTY));
+                            InventoryHelper.dropItems(entity.level, blockpos, NonNullList.from(ItemStack.EMPTY, items.toArray(new ItemStack[0])));
                         }
                     }
                 }

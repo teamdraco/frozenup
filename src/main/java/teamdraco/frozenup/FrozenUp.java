@@ -1,14 +1,8 @@
 package teamdraco.frozenup;
 
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.common.BiomeManager.BiomeType;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -38,7 +32,7 @@ public class FrozenUp {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerBiomes(BiomeLoadingEvent event) {
-        if (event.getCategory() == Biome.Category.ICY && event.getClimate().temperature <= 0.0f) {
+        if (event.getCategory() == BiomeType.Category.ICY && event.getClimate().temperature <= 0.0f) {
             event.getSpawns().getSpawner(EntityClassification.CREATURE).add(new MobSpawnInfo.Spawners(FrozenUpEntities.CHILLOO.get(), 1, 2, 3));
         }
     }
@@ -46,7 +40,7 @@ public class FrozenUp {
     private void registerCommon(FMLCommonSetupEvent event) {
         CommonEvents.setup();
         registerEntityAttributes();
-        EntitySpawnPlacementRegistry.register(FrozenUpEntities.CHILLOO.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
+        EntitySpawnPlacementRegistry.register(FrozenUpEntities.CHILLOO.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::canAnimalSpawn);
     }
 
     @SuppressWarnings("deprecation")

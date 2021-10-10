@@ -1,12 +1,11 @@
 package teamdraco.frozenup.world.gen.feature;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 @SuppressWarnings("unused")
 public class WorldGenFiller {
@@ -23,9 +22,9 @@ public class WorldGenFiller {
             }
             reader.setBlockState(entry.pos, entry.state, 3);
             entry.additionalPlacement(reader);
-            if (reader instanceof World) {
+            if (reader instanceof Level) {
                 BlockState state = reader.getBlockState(entry.pos);
-                ((World) reader).notifyBlockUpdate(entry.pos, state, state, 2);
+                ((Level) reader).notifyBlockUpdate(entry.pos, state, state, 2);
             }
         }
     }
@@ -45,7 +44,7 @@ public class WorldGenFiller {
         }
 
         public boolean canPlace(ISeedReader reader, BlockPos pos) {
-            if (World.isOutsideBuildHeight(pos)) {
+            if (Level.isOutsideBuildHeight(pos)) {
                 return false;
             }
             BlockState state = reader.getBlockState(pos);
@@ -53,7 +52,7 @@ public class WorldGenFiller {
         }
 
         public boolean canPlace(ISeedReader reader, BlockPos pos, Block block) {
-            if (World.isOutsideBuildHeight(pos)) {
+            if (Level.isOutsideBuildHeight(pos)) {
                 return false;
             }
             BlockState state = reader.getBlockState(pos);

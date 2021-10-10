@@ -1,9 +1,7 @@
 package teamdraco.frozenup.init;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.registry.Registry;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import teamdraco.frozenup.FrozenUp;
@@ -36,7 +34,8 @@ public class FrozenUpSoundEvents {
     private static SoundEvent entity(String entity, String type) {
         return register("entity." + entity + "." + type);
     }
-    private static SoundEvent ambient(String id, String type) {
+    @SuppressWarnings("unused")
+	private static SoundEvent ambient(String id, String type) {
         return register("ambient." + type + "." + id);
     }
 
