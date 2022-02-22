@@ -1,0 +1,24 @@
+{
+  "itemGroup.frozenup_item_group": "Frozen Up",
+
+  "item.frozenup.frozen_truffle": "Trufa helada",
+  "item.frozenup.truffle": "Trufa",
+  "item.frozenup.truffle_muffin": "Magdalena de trufas",
+  "item.frozenup.chilloo_spawn_egg": "Generar chilloo",
+  "item.frozenup.chilloo_feather": "Pluma de chilloo",
+  "item.frozenup.empty_mug": "Taza",
+  "item.frozenup.mug_of_chocolate_milk": "Taza con chocolate con leche",
+  "item.frozenup.mug_of_truffle_hot_chocolate": "Taza con chocolate caliente con trufas",
+  "item.frozenup.mug_of_milk": "Taza con leche",
+
+  "block.frozenup.chilloo_feather_block": "Bloque de plumas de chilloo",
+  "block.frozenup.chilloo_feather_block_carpet": "Alfombra de plumas de chilloo",
+  "block.frozenup.truffle_cake": "Tarta de chocolate con trufas",
+  "block.frozenup.chilloo_feather_lamp": "Lámpara de chilloo",
+
+  "entity.frozenup.chilloo": "Chilloo",
+
+  "frozenup.chilloo.ambient": "Chirridos de chilloo",
+  "frozenup.chilloo.hurt": "Chillidos de chilloo",
+  "frozenup.chilloo.death": "Quejidos de chilloo"
+}
